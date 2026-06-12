@@ -1,0 +1,93 @@
+mainSections   = ["posts"]
+rssFullContent = true
+SortBy         = "default"
+
+[footer]
+    since      = 2015
+    customText = "© 2015-2026 mu8429"
+
+[dateFormat]
+    published   = ":date_full"
+    lastUpdated = ":date_full"
+
+[sidebar]
+    compact = false
+    avatar  = "/images/avatar.svg"
+
+[article]
+    headingAnchor = true
+    math          = false
+    toc           = true
+    readingTime   = true
+
+    [article.list]
+        showTags = true
+
+    [article.license]
+        enabled = false
+        default = "Licensed under CC BY-NC-SA 4.0"
+
+    [article.mermaid]
+        look                  = "classic"
+        lightTheme            = "default"
+        darkTheme             = "dark"
+        securityLevel         = "strict"
+        htmlLabels            = true
+        transparentBackground = false
+
+    [article.alertIcon]
+        note      = "📝"
+        tip       = "💡"
+        important = "📌"
+        warning   = "⚠️"
+        caution   = "🚨"
+
+[widgets]
+    homepage = [
+        "search",
+        "archives",
+        "tag-cloud",
+        "categories"
+    ]
+    page = [
+        "toc"
+    ]
+
+[opengraph.twitter]
+    site = ""
+    card = "summary_large_image"
+
+[colorScheme]
+    toggle  = true
+    default = "auto"
+
+[imageProcessing]
+    autoOrient = false
+
+    [imageProcessing.external]
+        timeout = "5s"
+
+    [imageProcessing.content]
+        widths  = [800, 1600, 2400]
+        enabled = true
+
+    [imageProcessing.thumbnail]
+        enabled = true
+
+[cookies]
+    enabled      = false
+    showSettings = true
+
+    [cookies.categories]
+        analytics  = true
+        functional = true
+
+[comments]
+    enabled  = false
+    provider = ""
+
+    [comments.twikoo]
+        envId  = ""
+        region = ""
+        path   = ""
+        lang   = ""

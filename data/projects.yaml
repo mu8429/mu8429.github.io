@@ -1,0 +1,33 @@
+- name: "安全管理系统"
+  desc: "企业安全生产管理系统"
+  link: "https://github.com/mu8429/security-management-system"
+  tech:
+    - Spring Boot
+    - Vue
+    - MyBatis
+    - Redis
+    - MinIO
+
+- name: "Steam Switch"
+  desc: "Windows 桌面端 Steam 账号快速切换工具"
+  link: "https://github.com/mu8429/steam-switch"
+  tech:
+    - C#
+    - WPF
+    - Steam API
+
+- name: "opencode Workflow Studio"
+  desc: "多 Agent 协作可视化平台"
+  link: "https://github.com/mu8429/opencode-workflow-studio"
+  tech:
+    - Node.js
+    - React
+    - WebSocket
+
+- name: "个人博客"
+  desc: "基于 Hugo 的个人技术博客"
+  link: "https://github.com/mu8429/mu8429.github.io"
+  tech:
+    - Hugo
+    - GitHub Pages
+    - GitHub Actions

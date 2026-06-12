@@ -1,0 +1,14 @@
+- name: "GitHub"
+  desc: "代码托管与开源社区"
+  link: "https://github.com/"
+  avatar: "/images/friends/github.svg"
+
+- name: "Hugo"
+  desc: "静态网站生成器"
+  link: "https://gohugo.io/"
+  avatar: "/images/friends/hugo.svg"
+
+- name: "opencode"
+  desc: "AI 编程工具"
+  link: "https://opencode.ai/"
+  avatar: "/images/friends/opencode.svg"
