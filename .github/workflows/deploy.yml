@@ -46,19 +46,45 @@ jobs:
           ls -la
           echo "---- config check ----"
           find . -maxdepth 3 -type f \( -name "hugo.toml" -o -name "config.toml" -o -name "config.yaml" -o -name "config.yml" \)
+          echo "---- themes check ----"
+          find . -maxdepth 5 -type d -name "themes" | head -10
 
       - name: Detect Hugo project directory
         id: detect
         run: |
+          # 检查根目录是否有config
           if [ -f "hugo.toml" ] || [ -f "config.toml" ] || [ -d "config" ]; then
             echo "BUILD_DIR=." >> "$GITHUB_OUTPUT"
+            echo "Found Hugo config in root directory"
+          # 检查hugo-teek-site目录
           elif [ -f "hugo-teek-site/hugo.toml" ] || [ -f "hugo-teek-site/config.toml" ] || [ -d "hugo-teek-site/config" ]; then
             echo "BUILD_DIR=hugo-teek-site" >> "$GITHUB_OUTPUT"
+            echo "Found Hugo config in hugo-teek-site directory"
+          # 检查themes/hugo-teek/hugo-teek-site目录
+          elif [ -f "themes/hugo-teek/hugo-teek-site/hugo.toml" ]; then
+            echo "BUILD_DIR=themes/hugo-teek/hugo-teek-site" >> "$GITHUB_OUTPUT"
+            echo "Found Hugo config in themes/hugo-teek/hugo-teek-site directory"
           else
             echo "No Hugo config found."
             echo "Current files:"
             find . -maxdepth 3 -type f | sort
             exit 1
+          fi
+
+      - name: Prepare Hugo theme
+        run: |
+          BUILD_DIR="${{ steps.detect.outputs.BUILD_DIR }}"
+          echo "Build directory: $BUILD_DIR"
+          
+          # 如果BUILD_DIR是themes/hugo-teek/hugo-teek-site，需要准备主题
+          if [ "$BUILD_DIR" = "themes/hugo-teek/hugo-teek-site" ]; then
+            echo "Preparing theme for hugo-teek-site..."
+            # 确保themes目录存在
+            mkdir -p "$BUILD_DIR/themes"
+            # 如果hugo-teek主题不在正确位置，复制它
+            if [ ! -d "$BUILD_DIR/themes/hugo-teek" ]; then
+              cp -r "themes/hugo-teek/hugo-teek-site/themes/hugo-teek" "$BUILD_DIR/themes/"
+            fi
           fi
 
       - name: Build Hugo site
