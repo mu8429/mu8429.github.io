@@ -1,6 +1,7 @@
 {
   "name": "mu8429-blog",
   "version": "1.0.0",
+  "type": "module",
   "description": "mu8429's personal blog powered by VitePress",
   "scripts": {
     "dev": "vitepress dev docs",
@@ -11,7 +12,7 @@
   "author": "mu8429",
   "license": "MIT",
   "devDependencies": {
-    "vitepress": "0.22.4",
-    "vue": "^3.2.0"
+    "vitepress": "^1.6.0",
+    "vue": "^3.5.0"
   }
 }
