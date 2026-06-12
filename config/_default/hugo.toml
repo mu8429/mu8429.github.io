@@ -3,7 +3,8 @@ languageCode = "zh-CN"
 defaultContentLanguage = "zh-cn"
 title = "mu8429's Blog"
 theme = "hugo-theme-stack"
-paginate = 10
+[pagination]
+  pagerSize = 10
 enableRobotsTXT = true
 enableEmoji = true
 timeZone = "Asia/Shanghai"
