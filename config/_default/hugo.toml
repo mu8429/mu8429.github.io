@@ -1,99 +1,188 @@
 baseURL = "https://mu8429.github.io/"
-languageCode = "zh-CN"
-defaultContentLanguage = "zh-cn"
-title = "mu8429's Blog"
-theme = "hugo-theme-stack"
-[pagination]
-  pagerSize = 10
-enableRobotsTXT = true
+contentDir = "content"
 enableEmoji = true
-timeZone = "Asia/Shanghai"
+enableGitInfo = true
+enableRobotsTXT = true
+languageCode = "zh-CN"
+publishDir = "public"
+theme = "hugo-teek"
+title = "mu8429's Blog"
 
-[menu]
-  [[menu.main]]
-    identifier = "home"
-    name = "首页"
-    url = "/"
-    weight = 1
-    pre = "home"
+[minify]
+  disableCSS = false
+  disableHTML = false
+  disableJS = false
+  disableJSON = false
+  disableSVG = false
+  disableXML = false
+  minifyOutput = true
+  [minify.tdewolff.html]
+    keepWhitespace = false
+  [minify.tdewolff.css]
+    keepCSS2 = false
+  [minify.tdewolff.js]
+    keepVarNames = false
 
-  [[menu.main]]
-    identifier = "categories"
-    name = "技术分类"
-    url = "/categories/"
-    weight = 2
-    pre = "folder"
-
-  [[menu.main]]
-    identifier = "tags"
-    name = "标签"
-    url = "/tags/"
-    weight = 3
-    pre = "tags"
-
-  [[menu.main]]
-    identifier = "archives"
-    name = "归档"
-    url = "/archives/"
-    weight = 4
-    pre = "archive"
-
-  [[menu.main]]
-    identifier = "projects"
-    name = "项目"
-    url = "/posts/projects/"
-    weight = 5
-    pre = "rocket"
-
-  [[menu.main]]
-    identifier = "about"
-    name = "关于"
-    url = "/about/"
-    weight = 6
-    pre = "user"
-
-  [[menu.main]]
-    identifier = "github"
-    name = "GitHub"
-    url = "https://github.com/mu8429"
-    weight = 7
-    pre = "github"
+[frontmatter]
+  lastmod = [":fileModTime", ":default"]
 
 [markup]
   [markup.goldmark]
+    [markup.goldmark.extensions]
+      attributes = true
+      definitionList = true
+      footnote = true
+      linkify = true
+      strikethrough = true
+      table = true
+      taskList = true
+      typographer = true
+    [markup.goldmark.parser]
+      autoHeadingID = true
+      [markup.goldmark.parser.attribute]
+        block = true
+        title = true
     [markup.goldmark.renderer]
       unsafe = true
   [markup.highlight]
     codeFences = true
     guessSyntax = true
     lineNos = true
+    lineNumbersInTable = true
+    noClasses = false
     style = "monokai"
+    tabWidth = 2.0
   [markup.tableOfContents]
-    endLevel = 4
+    endLevel = 4.0
     ordered = false
-    startLevel = 2
+    startLevel = 2.0
 
-[outputs]
-  home = ["HTML", "RSS", "JSON"]
+[menu]
+  [[menu.main]]
+    name = "首页"
+    url = "/"
+    weight = 1.0
+
+  [[menu.main]]
+    identifier = "tech"
+    name = "技术分类"
+    url = "#"
+    weight = 2.0
+
+  [[menu.main]]
+    name = "Java 后端"
+    parent = "tech"
+    url = "/posts/java/"
+    weight = 1.0
+    [menu.main.params]
+      icon = "coffee"
+
+  [[menu.main]]
+    name = "Spring Boot"
+    parent = "tech"
+    url = "/posts/springboot/"
+    weight = 2.0
+    [menu.main.params]
+      icon = "leaf"
+
+  [[menu.main]]
+    name = "数据库"
+    parent = "tech"
+    url = "/posts/database/"
+    weight = 3.0
+    [menu.main.params]
+      icon = "database"
+
+  [[menu.main]]
+    name = "AI 工具"
+    parent = "tech"
+    url = "/posts/ai-tools/"
+    weight = 4.0
+    [menu.main.params]
+      icon = "cpu"
+
+  [[menu.main]]
+    identifier = "projects"
+    name = "项目"
+    url = "/posts/projects/"
+    weight = 3.0
+
+  [[menu.main]]
+    identifier = "archives"
+    name = "归档"
+    url = "/archives/"
+    weight = 4.0
+
+  [[menu.main]]
+    identifier = "tags"
+    name = "标签"
+    url = "/tags/"
+    weight = 5.0
+
+  [[menu.main]]
+    identifier = "categories"
+    name = "分类"
+    url = "/categories/"
+    weight = 6.0
+
+  [[menu.main]]
+    identifier = "about"
+    name = "关于"
+    url = "/about/"
+    weight = 7.0
+
+  [[menu.main]]
+    identifier = "github"
+    name = "GitHub"
+    url = "https://github.com/mu8429"
+    weight = 8.0
+    [menu.main.params]
+      icon = "github"
 
 [taxonomies]
   category = "categories"
   tag = "tags"
   series = "series"
 
-[imaging]
-  quality = 75
-  resampleFilter = "Lanczos"
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
 
 [sitemap]
   changefreq = "weekly"
   filename = "sitemap.xml"
   priority = 0.5
 
-[frontmatter]
-  date = ["date", "publishDate", "lastmod"]
-  lastmod = ["lastmod", ":fileModTime", "date"]
-  publishDate = ["publishDate", "date"]
+[params]
+  description = "记录 Java 后端、AI 工具、项目开发与学习总结"
+  keywords = ["Java", "Spring Boot", "AI", "博客", "技术"]
+  layoutMode = "bothWidthAdjustable"
+  siteStartDate = "2026-06-12"
+
+  [params.homepage]
+    paginatePCSize = 10
+    mobileInitialShow = 3
+    mobileLoadMoreStep = 10
+
+  [params.social]
+    github = "https://github.com/mu8429"
+
+  [params.article]
+    showToc = true
+    showReadingTime = true
+    showDate = true
+    showTags = true
+    showCategories = true
+    showSeries = true
+    showAuthor = true
+
+  [params.search]
+    enable = true
+
+  [params.comments]
+    enable = false
+
+  [params.analytics]
+    enable = false
 
 [languages]
   [languages.zh-cn]
