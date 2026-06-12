@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>opencode Workflow Studio: 多Agent协作可视化平台 |  爱吃地瓜脆片的奥妙</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-opencode-workflow-studio"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  opencode Workflow Studio: 多Agent协作可视化平台
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/07/12/opencode-workflow-studio/" class="article-date">
+  <time datetime="2024-07-12T10:00:00.000Z" itemprop="datePublished">2024-07-12</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3500</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">15 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p><strong>opencode Workflow Studio</strong> 是一个基于 Web 的可视化平台，用于编排、监控和管理多个 opencode Agent 协作完成复杂任务。它提供了一个直观的拖拽式界面，让用户能够轻松创建复杂的 AI 工作流。</p>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/mu8429/claude-workflow-studio">https://github.com/mu8429/claude-workflow-studio</a></p>
+<h2 id="核心功能"><a href="#核心功能" class="headerlink" title="核心功能"></a>核心功能</h2><h3 id="1-可视化工作流编辑器"><a href="#1-可视化工作流编辑器" class="headerlink" title="1. 可视化工作流编辑器"></a>1. 可视化工作流编辑器</h3><p>平台提供了 7 种节点类型，支持拖拽编排和 AI 自然语言生成工作流：</p>
+<ul>
+<li><strong>开始节点</strong>：工作流入口</li>
+<li><strong>Agent 节点</strong>：调用 AI 执行任务</li>
+<li><strong>自治判断节点</strong>：AI 审查代码/内容，返回 JSON 格式的 pass/fail 结果，支持自愈循环</li>
+<li><strong>人工审批节点</strong>：暂停等待用户审批，支持通过/拒绝，拒绝后自动将反馈传回主 Agent 重试修改</li>
+<li><strong>条件分支节点</strong>：根据上游输出判断，选择一条分支执行</li>
+<li><strong>子工作流节点</strong>：引用其他工作流，内联执行</li>
+<li><strong>结束节点</strong>：汇总最终结果</li>
+</ul>
+<h3 id="2-工作流模板市场"><a href="#2-工作流模板市场" class="headerlink" title="2. 工作流模板市场"></a>2. 工作流模板市场</h3><p>内置 13 个模板，覆盖常见开发场景：</p>
+<ul>
+<li>代码审查工作流</li>
+<li>Bug 修复工作流</li>
+<li>文档生成工作流</li>
+<li>安全审计工作流</li>
+<li>测试用例生成工作流</li>
+<li>代码重构工作流</li>
+</ul>
+<h3 id="3-技能市场"><a href="#3-技能市场" class="headerlink" title="3. 技能市场"></a>3. 技能市场</h3><p>丰富的技能库，安装后自动创建 SKILL.md 文件，SDK 自动发现。技能可以扩展 Agent 的能力，让工作流更加灵活。</p>
+<h3 id="4-实时流式输出"><a href="#4-实时流式输出" class="headerlink" title="4. 实时流式输出"></a>4. 实时流式输出</h3><p>所有子 Agent 输出通过 WebSocket 实时推送（50ms 合流缓冲），让用户能够实时观察 Agent 的执行过程。</p>
+<h3 id="5-断点续传"><a href="#5-断点续传" class="headerlink" title="5. 断点续传"></a>5. 断点续传</h3><p>节点级检查点，崩溃或暂停后从断点恢复，确保长时间运行的工作流不会因为意外中断而丢失进度。</p>
+<h3 id="6-记忆系统"><a href="#6-记忆系统" class="headerlink" title="6. 记忆系统"></a>6. 记忆系统</h3><p>按工作区隔离存储，支持开关控制、跨工作流传递、共享数据池，让 Agent 能够记住上下文信息。</p>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://nodejs.org/">Node.js 20+</a></li>
+<li><a target="_blank" rel="noopener" href="https://opencode.ai">opencode CLI</a></li>
+</ul>
+<h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 安装 opencode CLI</span></span><br><span class="line">npm install -g opencode-ai</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 配置 API 密钥</span></span><br><span class="line">opencode auth login</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 3. 克隆项目</span></span><br><span class="line">git clone https://github.com/mu8429/claude-workflow-studio.git</span><br><span class="line"><span class="built_in">cd</span> claude-workflow-studio</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 启动服务</span></span><br></pre></td></tr></table></figure>
+
+<p>启动后访问 <code>http://localhost:3000</code> 即可使用。</p>
+<h3 id="Windows-用户快捷方式"><a href="#Windows-用户快捷方式" class="headerlink" title="Windows 用户快捷方式"></a>Windows 用户快捷方式</h3><p>项目提供了批处理脚本，方便 Windows 用户操作：</p>
+<table>
+<thead>
+<tr>
+<th>脚本</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>install.bat</code></td>
+<td>一键安装依赖</td>
+</tr>
+<tr>
+<td><code>start.bat</code></td>
+<td>启动服务</td>
+</tr>
+<tr>
+<td><code>stop.bat</code></td>
+<td>停止服务</td>
+</tr>
+<tr>
+<td><code>restart.bat</code></td>
+<td>重启服务</td>
+</tr>
+</tbody>
+</table>
+<h2 id="使用教程"><a href="#使用教程" class="headerlink" title="使用教程"></a>使用教程</h2><h3 id="场景一：单-Agent-任务"><a href="#场景一：单-Agent-任务" class="headerlink" title="场景一：单 Agent 任务"></a>场景一：单 Agent 任务</h3><p>最简单的使用场景，让一个 Agent 完成特定任务：</p>
+<ol>
+<li>进入「智能体」页面，创建一个新的智能体</li>
+<li>进入「任务」页面，创建新任务</li>
+<li>选择 Agent，输入任务描述</li>
+<li>点击执行，观察实时输出</li>
+</ol>
+<h3 id="场景二：多-Agent-流水线"><a href="#场景二：多-Agent-流水线" class="headerlink" title="场景二：多 Agent 流水线"></a>场景二：多 Agent 流水线</h3><p>创建复杂的多 Agent 协作工作流：</p>
+<ol>
+<li>进入「工作流」页面，创建新工作流</li>
+<li>从左侧面板拖入 Agent 节点</li>
+<li>连接节点，定义执行顺序</li>
+<li>保存工作流</li>
+<li>进入「任务」页面，选择关联的工作流</li>
+<li>输入任务描述，执行工作流</li>
+</ol>
+<h3 id="场景三：代码审查工作流"><a href="#场景三：代码审查工作流" class="headerlink" title="场景三：代码审查工作流"></a>场景三：代码审查工作流</h3><p>使用内置模板快速创建代码审查流程：</p>
+<ol>
+<li>进入「工作流」页面</li>
+<li>点击「从模板创建」</li>
+<li>选择「代码审查」模板</li>
+<li>根据需要调整节点配置</li>
+<li>保存并执行</li>
+</ol>
+<h2 id="技术架构深度解析"><a href="#技术架构深度解析" class="headerlink" title="技术架构深度解析"></a>技术架构深度解析</h2><h3 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构"></a>系统架构</h3><p>opencode Workflow Studio 采用前后端分离架构：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">+------------------------------------------+</span><br><span class="line">|              Browser (SPA)                |</span><br><span class="line">|  Dashboard | Agents | Workflows | Terminal|</span><br><span class="line">+---------------------+--------------------+</span><br><span class="line">                      |  HTTP + WebSocket</span><br><span class="line">+---------------------+--------------------+</span><br><span class="line">|         Express + WebSocket Server        |</span><br><span class="line">|  Routes | Middleware | Auth | Rate Limit  |</span><br><span class="line">|  WorkflowService | AgentService | Memory  |</span><br><span class="line">|  sql.js (WASM SQLite) | JSON | Workspace |</span><br><span class="line">+---------------------+--------------------+</span><br><span class="line">                      |</span><br><span class="line">+---------------------+--------------------+</span><br></pre></td></tr></table></figure>
+
+<h3 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h3><table>
+<thead>
+<tr>
+<th>层</th>
+<th>技术</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>前端</td>
+<td>HTML + CSS + TypeScript/JS（SPA）+ xterm.js</td>
+</tr>
+<tr>
+<td>后端</td>
+<td>Node.js + Express + TypeScript</td>
+</tr>
+<tr>
+<td>实时通信</td>
+<td>WebSocket (ws)，实时 CRUD 事件推送</td>
+</tr>
+<tr>
+<td>AI 执行引擎</td>
+<td>opencode CLI（自动检测模型，支持多种 LLM 提供商）</td>
+</tr>
+<tr>
+<td>数据持久化</td>
+<td>sql.js (WASM SQLite) + JSON 文件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="核心执行引擎：TS-状态机"><a href="#核心执行引擎：TS-状态机" class="headerlink" title="核心执行引擎：TS 状态机"></a>核心执行引擎：TS 状态机</h3><p>平台采用 <strong>TS 强状态机驱动执行</strong>，核心原则是「脑子归 AI，手脚归代码」：</p>
+<ul>
+<li>TypeScript 代码直接控制工作流执行</li>
+<li>主 Agent 无法「假装运行」子 Agent</li>
+<li>通过拓扑排序确定执行顺序</li>
+<li>直接调用 <code>query()</code> 启动子进程</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// WorkflowService._executeWorkflowStateMachine()</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> nodeId <span class="keyword">of</span> topoOrder) {</span><br><span class="line">  <span class="keyword">const</span> node = nodeMap.get(nodeId);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">switch</span> (node.type) {</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'agent'</span>:</span><br><span class="line">      <span class="comment">// 直接调用 query() 启动子Agent</span></span><br><span class="line">      nodeOutput = <span class="keyword">await</span> sdkService._executeWithClaudeSdk(...);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'condition'</span>:</span><br><span class="line">      <span class="comment">// 使用轻量级AI判断条件</span></span><br><span class="line">      evalResult = sdkService._parseJsonSafely(evalRaw);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'approval'</span>:</span><br><span class="line">      <span class="comment">// 挂起等待人工审批</span></span><br><span class="line">      approvalResult = <span class="keyword">await</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>)</span> =&gt; { ... });</span><br></pre></td></tr></table></figure>
+
+<h3 id="Agent-SDK-集成"><a href="#Agent-SDK-集成" class="headerlink" title="Agent SDK 集成"></a>Agent SDK 集成</h3><p>平台使用 <code>@anthropic-ai/claude-agent-sdk</code> 作为执行引擎，通过 <code>query()</code> 函数启动独立子进程：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>核心函数</td>
+<td><code>query({ prompt, options })</code></td>
+</tr>
+<tr>
+<td>子进程</td>
+<td>每次调用启动独立的 <code>claude</code> 子进程</td>
+</tr>
+<tr>
+<td>工具集</td>
+<td>内置工具（Read、Write、Edit、Bash、Glob、Grep）</td>
+</tr>
+<tr>
+<td>API Key</td>
+<td>AES-256-GCM 加密存储</td>
+</tr>
+</tbody>
+</table>
+<h3 id="模型别名系统"><a href="#模型别名系统" class="headerlink" title="模型别名系统"></a>模型别名系统</h3><p>所有模型引用使用别名，通过 <code>ApiKeyService.resolveModel()</code> 映射到实际模型：</p>
+<table>
+<thead>
+<tr>
+<th>别名</th>
+<th>含义</th>
+<th>典型场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>opus</code></td>
+<td>最强推理</td>
+<td>复杂架构设计、多步骤推理</td>
+</tr>
+<tr>
+<td><code>sonnet</code></td>
+<td>平衡模型</td>
+<td>日常编码、代码审查</td>
+</tr>
+<tr>
+<td><code>haiku</code></td>
+<td>快速轻量</td>
+<td>简单任务、AI 工作流生成</td>
+</tr>
+</tbody>
+</table>
+<h3 id="安全机制"><a href="#安全机制" class="headerlink" title="安全机制"></a>安全机制</h3><p>平台实现了多层安全防护：</p>
+<ul>
+<li><strong>API Key 加密</strong>：AES-256-GCM 加密存储</li>
+<li><strong>命令白名单</strong>：限制可执行的命令</li>
+<li><strong>并发执行防护</strong>：防止资源竞争</li>
+<li><strong>工作区沙箱</strong>：隔离不同项目</li>
+<li><strong>文件访问限制</strong>：限制文件操作范围</li>
+</ul>
+<h2 id="高级功能"><a href="#高级功能" class="headerlink" title="高级功能"></a>高级功能</h2><h3 id="内嵌终端"><a href="#内嵌终端" class="headerlink" title="内嵌终端"></a>内嵌终端</h3><p>基于 node-pty 的真实 PTY 终端，支持所有 shell 命令，自动在当前工作区打开。用户可以直接在 Web 界面中执行命令。</p>
+<h3 id="多工作区管理"><a href="#多工作区管理" class="headerlink" title="多工作区管理"></a>多工作区管理</h3><p>独立运行环境，数据隔离，支持批量克隆工作流到其他工作区。适合管理多个项目。</p>
+<h3 id="知识库系统"><a href="#知识库系统" class="headerlink" title="知识库系统"></a>知识库系统</h3><p>分类/标签管理，全文搜索，可注入 Agent 执行，本地持久化存储。让 Agent 能够访问项目特定的知识。</p>
+<h3 id="数据分析面板"><a href="#数据分析面板" class="headerlink" title="数据分析面板"></a>数据分析面板</h3><p>提供详细的执行统计：</p>
+<ul>
+<li>执行成功率</li>
+<li>平均耗时</li>
+<li>按工作流统计</li>
+<li>执行时间线</li>
+</ul>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="Q-Agent-执行失败？"><a href="#Q-Agent-执行失败？" class="headerlink" title="Q: Agent 执行失败？"></a>Q: Agent 执行失败？</h3><p>检查 opencode CLI 是否安装（<code>opencode --version</code>），确保已配置 API 密钥（<code>opencode auth login</code>）</p>
+<h3 id="Q-工作流中断了？"><a href="#Q-工作流中断了？" class="headerlink" title="Q: 工作流中断了？"></a>Q: 工作流中断了？</h3><p>重启服务，点击「续传」从断点恢复</p>
+<h3 id="Q-数据会丢吗？"><a href="#Q-数据会丢吗？" class="headerlink" title="Q: 数据会丢吗？"></a>Q: 数据会丢吗？</h3><p>每 2 秒自动保存，正常关闭不会丢数据</p>
+<h3 id="Q-能管理多个项目吗？"><a href="#Q-能管理多个项目吗？" class="headerlink" title="Q: 能管理多个项目吗？"></a>Q: 能管理多个项目吗？</h3><p>可以，通过「文件」→「切换工作区」创建独立环境</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>opencode Workflow Studio 是一个功能强大的多 Agent 协作平台，它将复杂的 AI 工作流编排变得简单直观。无论你是想让多个 Agent 协作完成复杂任务，还是想创建自动化的开发流程，这个平台都能满足你的需求。</p>
+<p>项目的开源性质也意味着你可以根据自己的需求进行定制和扩展。欢迎 Star、Fork 和贡献代码！</p>
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ul>
+<li>项目地址：<a target="_blank" rel="noopener" href="https://github.com/mu8429/claude-workflow-studio">https://github.com/mu8429/claude-workflow-studio</a></li>
+<li>opencode CLI：<a target="_blank" rel="noopener" href="https://opencode.ai">https://opencode.ai</a></li>
+<li>Node.js：<a target="_blank" rel="noopener" href="https://nodejs.org/">https://nodejs.org/</a></li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2024/07/12/opencode-workflow-studio/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+ 
+  
+   
+  
+ 
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2015-2024
+        <i class="ri-heart-fill heart_icon"></i> John Doe
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="爱吃地瓜脆片的奥妙"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
