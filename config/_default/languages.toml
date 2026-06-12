@@ -8,7 +8,7 @@
     categories = "分类"
     tags = "标签"
     archives = "归档"
-    search = "搜索"
+    searchLabel = "搜索"
     searchPlaceholder = "搜索文章..."
     readMore = "阅读更多"
     tableOfContents = "目录"
