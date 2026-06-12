@@ -8,6 +8,7 @@ publishDir = "public"
 theme = "hugo-teek"
 title = "mu8429's Blog"
 
+# 启用 HTML/CSS/JS/JSON/XML 最小化
 [minify]
   disableCSS = false
   disableHTML = false
@@ -23,6 +24,20 @@ title = "mu8429's Blog"
   [minify.tdewolff.js]
     keepVarNames = false
 
+# 忽略以下划线开头的文件和目录（递归），但保留 _index.md
+ignoreFiles = [
+  "/_[^i].*",
+  "/_i[^n].*",
+  "/_in[^d].*",
+  "/_ind[^e].*",
+  "/_inde[^x].*",
+  "/_index[^\\.].*",
+  "/_index\\.[^m].*",
+  "/_index\\.m[^d].*",
+  "/_index\\.md..*"
+]
+
+# Front Matter 配置 - 最后更新时间使用文件修改时间
 [frontmatter]
   lastmod = [":fileModTime", ":default"]
 
@@ -55,158 +70,410 @@ title = "mu8429's Blog"
   [markup.tableOfContents]
     endLevel = 4.0
     ordered = false
-    startLevel = 2.0
+    startLevel = 1.0
 
 [menu]
+
   [[menu.main]]
     name = "首页"
     url = "/"
     weight = 1.0
 
   [[menu.main]]
-    identifier = "tech"
+    identifier = "docs"
     name = "技术分类"
     url = "#"
     weight = 2.0
 
   [[menu.main]]
-    name = "Java 后端"
-    parent = "tech"
-    url = "/posts/java/"
+    name = "Java"
+    parent = "docs"
+    url = "/java/"
     weight = 1.0
     [menu.main.params]
+      description = "Java 基础、JVM、多线程"
       icon = "coffee"
 
   [[menu.main]]
     name = "Spring Boot"
-    parent = "tech"
-    url = "/posts/springboot/"
+    parent = "docs"
+    url = "/springboot/"
     weight = 2.0
     [menu.main.params]
+      description = "Spring Boot 框架实战"
       icon = "leaf"
 
   [[menu.main]]
     name = "数据库"
-    parent = "tech"
-    url = "/posts/database/"
+    parent = "docs"
+    url = "/database/"
     weight = 3.0
     [menu.main.params]
+      description = "MySQL、Redis、数据库优化"
       icon = "database"
 
   [[menu.main]]
     name = "AI 工具"
-    parent = "tech"
-    url = "/posts/ai-tools/"
+    parent = "docs"
+    url = "/ai-tools/"
     weight = 4.0
     [menu.main.params]
+      description = "AI 工具使用与实践"
       icon = "cpu"
 
   [[menu.main]]
-    identifier = "projects"
-    name = "项目"
-    url = "/posts/projects/"
+    identifier = "topics"
+    name = "专题"
+    url = "#"
     weight = 3.0
 
   [[menu.main]]
-    identifier = "archives"
-    name = "归档"
-    url = "/archives/"
+    name = "博客搭建"
+    parent = "topics"
+    url = "/blog/"
+    weight = 1.0
+    [menu.main.params]
+      icon = "book"
+
+  [[menu.main]]
+    name = "面试"
+    parent = "topics"
+    url = "/interview/"
+    weight = 2.0
+    [menu.main.params]
+      icon = "briefcase"
+
+  [[menu.main]]
+    name = "项目"
+    parent = "topics"
+    url = "/projects/"
+    weight = 3.0
+    [menu.main.params]
+      icon = "layout"
+
+  [[menu.main]]
+    name = "笔记"
+    parent = "topics"
+    url = "/notes/"
+    weight = 4.0
+    [menu.main.params]
+      icon = "file-code"
+
+  [[menu.main]]
+    identifier = "index"
+    name = "索引"
+    url = "#"
     weight = 4.0
 
   [[menu.main]]
-    identifier = "tags"
-    name = "标签"
-    url = "/tags/"
-    weight = 5.0
+    name = "分类页"
+    parent = "index"
+    url = "/categories/"
+    weight = 1.0
+    [menu.main.params]
+      icon = "folder"
 
   [[menu.main]]
-    identifier = "categories"
-    name = "分类"
-    url = "/categories/"
-    weight = 6.0
+    name = "标签页"
+    parent = "index"
+    url = "/tags/"
+    weight = 2.0
+    [menu.main.params]
+      icon = "tag"
+
+  [[menu.main]]
+    name = "归档页"
+    parent = "index"
+    url = "/archives/"
+    weight = 3.0
+    [menu.main.params]
+      icon = "archive"
 
   [[menu.main]]
     identifier = "about"
     name = "关于"
-    url = "/about/"
-    weight = 7.0
+    url = "#"
+    weight = 5.0
+
+  [[menu.main]]
+    name = "关于我"
+    parent = "about"
+    url = "/about/me/"
+    weight = 1.0
+    [menu.main.params]
+      icon = "user"
+
+  [[menu.main]]
+    name = "关于本站"
+    parent = "about"
+    url = "/about/site/"
+    weight = 2.0
+    [menu.main.params]
+      icon = "info"
+
+  [[menu.main]]
+    name = "友链"
+    parent = "about"
+    url = "/about/friend-links/"
+    weight = 3.0
+    [menu.main.params]
+      icon = "link"
 
   [[menu.main]]
     identifier = "github"
     name = "GitHub"
     url = "https://github.com/mu8429"
-    weight = 8.0
+    weight = 6.0
     [menu.main.params]
       icon = "github"
+
+[outputFormats]
+  [outputFormats.RSS]
+    baseName = "feed"
+    mediatype = "application/rss+xml"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  page = ["HTML"]
+  section = ["HTML", "RSS"]
+
+[pagination]
+  defaultContentLanguage = "zh-cn"
+  pagerSize = 12.0
+  path = "page"
+
+[params]
+  description = "mu8429 的技术博客，专注于 Java 后端、Spring Boot、数据库、AI 工具等技术分享"
+  keywords = ["Java", "Spring Boot", "MySQL", "Redis", "AI", "技术博客"]
+  layoutMode = "bothWidthAdjustable"
+  siteStartDate = "2026-06-12"
+
+  # 首页分页配置
+  [params.homepage]
+    paginatePCSize = 12
+    mobileInitialShow = 3
+    mobileLoadMoreStep = 10
+
+  # Section URL 映射配置
+  [params.sectionMapping]
+    "01.Java" = "/java/"
+    "02.SpringBoot" = "/springboot/"
+    "03.数据库" = "/database/"
+    "04.AI工具" = "/ai-tools/"
+    "05.面试" = "/interview/"
+    "06.项目" = "/projects/"
+    "07.笔记" = "/notes/"
+    "08.博客" = "/blog/"
+
+  # 分析统计配置
+  [params.analytics]
+    [params.analytics.busuanzi]
+      enabled = false
+      url = ""
+      prefix = "busuanzi"
+      style = "comma"
+      pjax = false
+      page_pv = true
+      site_pv = true
+      site_uv = true
+    [params.analytics.umami]
+      enabled = false
+      url = ""
+      websiteId = ""
+
+  # 打赏配置
+  [params.appreciation]
+    enabled = false
+    alipayQR = ""
+    wechatQR = ""
+
+  # 微信公众号卡片
+  [params.wechatOfficial]
+    enabled = false
+    name = ""
+    description = ""
+    qrcodeImage = ""
+    qrcodeUrl = ""
+
+  # 作者信息
+  [params.author]
+    email = ""
+    link = "https://github.com/mu8429"
+    name = "mu8429"
+
+  # 博主信息卡
+  [params.blogger]
+    avatar = "/images/avatar.svg"
+    backgroundImage = ""
+    circleBgImg = ""
+    circleBgMask = false
+    name = "mu8429"
+    shape = "circle-rotate"
+    slogan = "记录技术学习与成长"
+    [params.blogger.status]
+      icon = "💻"
+      size = 18.0
+      title = "编码中"
+
+  # 首页侧边栏卡片显示控制
+  [params.homeSidebar]
+    [params.homeSidebar.announcement]
+      enabled = true
+    [params.homeSidebar.calendar]
+      enabled = true
+    [params.homeSidebar.timeProgress]
+      enabled = true
+    [params.homeSidebar.recentComments]
+      enabled = false
+      pageSize = 5
+      totalSize = 50
+    [params.homeSidebar.featuredPosts]
+      enabled = true
+    [params.homeSidebar.categories]
+      enabled = true
+    [params.homeSidebar.hotTags]
+      enabled = true
+    [params.homeSidebar.friendLinks]
+      enabled = false
+    [params.homeSidebar.siteInfo]
+      enabled = true
+
+  [params.category]
+    autoPage = false
+    enabled = true
+    limit = 8.0
+    pageSpeed = 4000.0
+
+  [params.codeBlock]
+    autoCollapse = true
+    collapseHeight = 700.0
+    copyButton = true
+
+  # 评论配置
+  [params.comment]
+    enabled = false
+    envId = ""
+    hideAdmin = false
+    provider = "twikoo"
+    version = "1.6.41"
+
+  # 文章版权信息
+  [params.docCopyright]
+    authorName = "mu8429"
+    authorUrl = "https://github.com/mu8429"
+    enabled = true
+    licenseName = "CC BY-NC-SA 4.0"
+    licenseUrl = "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
+    siteName = "mu8429 Blog"
+    siteUrl = "https://mu8429.github.io"
+
+  # 页脚配置
+  [params.footer]
+    copyright_suffix = "mu8429"
+    copyright_year_start = 2026.06
+    custom_message = "Stay hungry, stay foolish"
+    show_services = true
+    show_theme_info = true
+    [params.footer.icp]
+      enabled = false
+      number = ""
+      url = ""
+
+  # 动态背景配置
+  [params.heroBg]
+    enabled = true
+    autoPlay = true
+    interval = 8000
+    mode = "hybrid"
+    useStaticFirst = true
+    apiUrl = ""
+    apiEnabled = false
+    apiCacheDuration = 3600
+    [params.heroBg.performance]
+      preloadCount = 3
+      lazyLoadDelay = 500
+      predictivePreload = true
+      pauseOnHidden = true
+    [params.heroBg.quality]
+      format = "webp"
+      fallbackFormat = "jpg"
+      [params.heroBg.quality.mobile]
+        width = 1080
+        height = 720
+        quality = 75
+      [params.heroBg.quality.desktop]
+        width = 1920
+        height = 1080
+        quality = 85
+
+  # 打字机副标题配置
+  [params.heroSubtitle]
+    deleteSpeed = 45.0
+    hold = 1800.0
+    nextDelay = 600.0
+    shuffle = false
+    typeSpeed = 90.0
+
+  [params.image]
+    lazyLoading = true
+
+  # 缩略图配置
+  [params.imageThumbnail]
+    enabled = false
+    [params.imageThumbnail.articleCard]
+      width = 1200
+      height = 690
+      quality = 80
+      format = "webp"
+
+  [params.layoutWidths]
+    description = "mu8429 的技术博客"
+    doc = "960px"
+    full = "1440px"
+    keywords = ["Java", "Spring Boot", "AI", "技术博客"]
+    mainSections = ["docs"]
+    page = "1280px"
+
+  [params.scrollProgress]
+    enabled = true
+
+  [params.search]
+    enabled = true
+    provider = "pagefind"
+
+  # 友链配置
+  [params.friendLink]
+    limit = 5
+    interval = 5000
+    groups = []
+
+  [params.friendPage]
+    smallTitle = "与各位博主一起成长进步"
+    bannerButtonGroup = true
+
+  # 标签页标题切换
+  [params.titleChange]
+    enabled = true
+    hidden = "w(ﾟДﾟ)w 不要走！再看看嘛！"
+    resetDelay = 2000.0
+    return = "♪(^∇^*)欢迎回来！"
+
+  # 壁纸功能
+  [params.wallpaper]
+    autoPlay = true
+    enabled = true
+    hideBanner = true
+    interval = 5000.0
+
+  # 页面加载动画
+  [params.pageLoading]
+    enabled = true
+    text = "Loading..."
+
+[permalinks]
+  posts = "/posts/:slug/"
 
 [taxonomies]
   category = "categories"
   tag = "tags"
   series = "series"
-
-[outputs]
-  home = ["HTML", "RSS", "JSON"]
-
-[sitemap]
-  changefreq = "weekly"
-  filename = "sitemap.xml"
-  priority = 0.5
-
-[params]
-  description = "记录 Java 后端、AI 工具、项目开发与学习总结"
-  keywords = ["Java", "Spring Boot", "AI", "博客", "技术"]
-  layoutMode = "bothWidthAdjustable"
-  siteStartDate = "2026-06-12"
-
-  [params.homepage]
-    paginatePCSize = 10
-    mobileInitialShow = 3
-    mobileLoadMoreStep = 10
-
-  [params.social]
-    github = "https://github.com/mu8429"
-
-  [params.article]
-    showToc = true
-    showReadingTime = true
-    showDate = true
-    showTags = true
-    showCategories = true
-    showSeries = true
-    showAuthor = true
-
-  [params.search]
-    enable = true
-
-  [params.comments]
-    enable = false
-
-  [params.analytics]
-    enable = false
-
-[languages]
-  [languages.zh-cn]
-    languageName = "简体中文"
-    weight = 1
-    title = "mu8429's Blog"
-    description = "记录 Java 后端、AI 工具、项目开发与学习总结"
-
-    [languages.zh-cn.params]
-      categories = "分类"
-      tags = "标签"
-      archives = "归档"
-      search = "搜索"
-      searchPlaceholder = "搜索文章..."
-      readMore = "阅读更多"
-      tableOfContents = "目录"
-      lastUpdated = "最后更新"
-      previousPost = "上一篇"
-      nextPost = "下一篇"
-      relatedPosts = "相关文章"
-      series = "系列"
-      announcement = "公告"
-      backToTop = "回到顶部"
-      home = "首页"
-      about = "关于"
-      links = "友链"
-      now = "现在"

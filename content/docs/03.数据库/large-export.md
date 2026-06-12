@@ -1,17 +1,18 @@
 ---
 title: "后端大数据量导出如何设计"
+author: mu8429
 date: 2026-06-12T13:00:00+08:00
 lastmod: 2026-06-12T13:00:00+08:00
 description: "总结后台管理系统中大数据量导出的常见处理方案，包括分页查询、异步任务、文件存储和下载通知。"
 categories:
-  - Java 后端
+  - 数据库
 tags:
   - 数据导出
   - MySQL
   - Excel
   - 异步任务
 series:
-  - Java 后端
+  - 数据库
 featured: false
 draft: false
 toc: true

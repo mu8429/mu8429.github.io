@@ -1,16 +1,17 @@
 ---
 title: "RBAC 权限系统设计：用户、角色、菜单与按钮权限"
+author: mu8429
 date: 2026-06-12T13:00:00+08:00
 lastmod: 2026-06-12T13:00:00+08:00
 description: "整理后台管理系统中常见的 RBAC 权限模型，说明用户、角色、菜单、按钮之间的关系。"
 categories:
-  - Java 后端
+  - Java
 tags:
   - RBAC
   - 权限系统
   - Spring Boot
 series:
-  - Java 后端
+  - Java
 featured: false
 draft: false
 toc: true

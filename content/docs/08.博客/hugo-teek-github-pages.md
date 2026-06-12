@@ -1,16 +1,17 @@
 ---
 title: "使用 Hugo-Teek 改造 GitHub Pages 个人博客"
+author: mu8429
 date: 2026-06-12T13:00:00+08:00
 lastmod: 2026-06-12T13:00:00+08:00
 description: "记录将原本简陋的 GitHub Pages 主页改造成技术博客的过程，包括主题选择、目录规划、自动部署和内容组织。"
 categories:
-  - 博客搭建
+  - 博客
 tags:
   - Hugo
   - Hugo-Teek
   - GitHub Pages
 series:
-  - 博客搭建
+  - 博客
 featured: true
 draft: false
 toc: true

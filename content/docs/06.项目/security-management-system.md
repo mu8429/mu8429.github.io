@@ -1,10 +1,11 @@
 ---
 title: "安全管理系统项目复盘"
+author: mu8429
 date: 2026-06-12T13:00:00+08:00
 lastmod: 2026-06-12T13:00:00+08:00
 description: "复盘一个企业安全生产管理系统的技术架构、核心模块和项目亮点。"
 categories:
-  - 项目复盘
+  - 项目
 tags:
   - Spring Boot
   - Vue
@@ -12,7 +13,7 @@ tags:
   - Redis
   - MinIO
 series:
-  - 项目复盘
+  - 项目
 featured: false
 draft: false
 toc: true

@@ -1,10 +1,11 @@
 ---
 title: "Java 后端面试常见问题整理"
+author: mu8429
 date: 2026-06-12T13:00:00+08:00
 lastmod: 2026-06-12T13:00:00+08:00
 description: "整理 Java 后端开发面试中常见的技术问题，包括线程、事务、索引、缓存、权限和项目经验。"
 categories:
-  - 面试总结
+  - 面试
 tags:
   - Java
   - 面试
@@ -12,7 +13,7 @@ tags:
   - MySQL
   - Redis
 series:
-  - 面试总结
+  - 面试
 featured: true
 draft: false
 toc: true

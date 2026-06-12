@@ -1,0 +1,193 @@
+{{ define "main" }}
+<article class="post-single friend-links-page">
+<div class="my-links-container">
+
+  <!-- 页面主标题区域 -->
+  <div class="my-links-title">
+    <h1>{{ .Title | default "我的友链" }}</h1>
+  </div>
+
+  <!-- Banner 横幅区域 -->
+  <div class="flink-banner" id="banners">
+    <!-- 左上角小标题 -->
+    <div class="icon-heartbeat1 banners-small-title">
+      {{ .Site.Params.friendPage.smallTitle | default "与各位博主一起成长进步" }}
+    </div>
+
+    <!-- 右上角功能按钮组 -->
+    <div class="banner-button-group">
+      <!-- 随机访问按钮 -->
+      <button class="banner-button secondary" onclick="window.friendLinksPage.randomVisit()" aria-label="随机访问友链">
+        <i class="icon-paper-plane" style="font-size: 18px;"></i>
+        <span class="banner-button-text">随机访问</span>
+      </button>
+
+      <!-- 申请友链按钮 -->
+      <a class="banner-button primary" href="#post-comment" aria-label="申请友链">
+        <i class="icon-link" style="font-size: 18px;"></i>
+        <span class="banner-button-text">申请友链</span>
+      </a>
+    </div>
+
+    <!-- 两行头像横向无限滚动区域（错位排列）+ 星爆效果容器 -->
+    <div class="tags-group-all">
+      <!-- 星爆效果容器 -->
+      <div class="global-stars" id="starsContainer">
+        {{ range $i := seq 6 }}
+        <svg class="star-item gstar-{{ $i }}" viewBox="0 0 24 24">
+          <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" />
+        </svg>
+        {{ end }}
+      </div>
+
+      <div class="tags-group-wrapper">
+        <!-- 收集所有友链用于头像滚动 -->
+        {{ $allLinks := slice }}
+        {{ range .Site.Data.friendLinks.links }}
+          {{ range .list }}
+            {{ $allLinks = $allLinks | append . }}
+          {{ end }}
+        {{ end }}
+
+        <!-- 将头像分成两行 -->
+        {{ $mid := div (len $allLinks) 2 | add 1 }}
+        {{ $row1 := first $mid $allLinks }}
+        {{ $row2 := after $mid $allLinks }}
+
+        <!-- 第一行（复制两份实现无缝滚动） -->
+        <div class="tags-group-row">
+          <div class="tags-group-content">
+            {{ range $row1 }}
+              <a href="{{ .url }}" class="tags-group-icon" target="_blank"
+                 title="{{ .name }}" data-name="{{ .name }}" rel="external nofollow noopener">
+                <img src="{{ .avatar }}" alt="{{ .name }}" loading="eager"
+                     {{ if .irregular }}class="irregular"{{ end }}>
+                <div class="avatar-overlay">
+                  <span class="avatar-text">{{ .name }}</span>
+                </div>
+              </a>
+            {{ end }}
+            {{ range $row1 }}
+              <a href="{{ .url }}" class="tags-group-icon" target="_blank"
+                 title="{{ .name }}" data-name="{{ .name }}" rel="external nofollow noopener">
+                <img src="{{ .avatar }}" alt="{{ .name }}" loading="eager"
+                     {{ if .irregular }}class="irregular"{{ end }}>
+                <div class="avatar-overlay">
+                  <span class="avatar-text">{{ .name }}</span>
+                </div>
+              </a>
+            {{ end }}
+          </div>
+        </div>
+
+        <!-- 第二行（带错位，复制两份实现无缝滚动） -->
+        <div class="tags-group-row offset-start">
+          <div class="tags-group-content">
+            {{ range $row2 }}
+              <a href="{{ .url }}" class="tags-group-icon" target="_blank"
+                 title="{{ .name }}" data-name="{{ .name }}" rel="external nofollow noopener">
+                <img src="{{ .avatar }}" alt="{{ .name }}" loading="eager"
+                     {{ if .irregular }}class="irregular"{{ end }}>
+                <div class="avatar-overlay">
+                  <span class="avatar-text">{{ .name }}</span>
+                </div>
+              </a>
+            {{ end }}
+            {{ range $row2 }}
+              <a href="{{ .url }}" class="tags-group-icon" target="_blank"
+                 title="{{ .name }}" data-name="{{ .name }}" rel="external nofollow noopener">
+                <img src="{{ .avatar }}" alt="{{ .name }}" loading="eager"
+                     {{ if .irregular }}class="irregular"{{ end }}>
+                <div class="avatar-overlay">
+                  <span class="avatar-text">{{ .name }}</span>
+                </div>
+              </a>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 友链分组列表，每个分组包含标题、描述和友链列表 -->
+  {{ range .Site.Data.friendLinks.links }}
+  <div class="my-links-group">
+    <!-- 分组标题容器 -->
+    <div class="title-wrapper">
+      <h3>{{ .title }}</h3>
+    </div>
+
+    <!-- 分组描述文本 -->
+    {{ if .desc }}
+    <p class="group-desc">{{ .desc }}</p>
+    {{ end }}
+
+    <!-- 友链列表容器 -->
+    <div class="links-grid">
+      <!-- 每个友链项使用卡片展示 -->
+      {{ range .list }}
+      <div class="links-grid__item">
+        <div class="link-item-card" data-card>
+          <!-- 标签 -->
+          {{ if .badge }}
+          <div class="link-tag">{{ .badge }}</div>
+          {{ end }}
+
+          <a href="{{ .url }}" title="{{ .name }}" target="_blank" rel="noopener">
+            <!-- 头像 -->
+            <div class="link-avatar">
+              <img src="{{ .avatar }}" alt="{{ .name }}"
+                   {{ if .irregular }}class="irregular"{{ end }}>
+            </div>
+
+            <!-- 信息 -->
+            <div class="link-content">
+              <div class="link-name">{{ .name }}</div>
+              <div class="link-desc" title="{{ .description }}">
+                {{ .description }}
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+
+  <!-- 留言/评论区域 -->
+  <div class="my-message-section" id="post-comment">
+    <div class="title-wrapper">
+      <h3>申请友链</h3>
+    </div>
+    <p>想要和我交换友链？请在评论区按以下格式留言 💞</p>
+
+    <!-- 留言卡片容器 -->
+    <div class="message-card">
+      <!-- 复制按钮区域 -->
+      <div class="copy-button-container">
+        <button class="copy-button" onclick="window.friendLinksPage.copyMessageFormat()" aria-label="复制格式">
+          <i class="icon-copy" style="font-size: 16px;"></i>
+          <span class="copy-button-text">复制格式</span>
+        </button>
+      </div>
+
+      <p>留言格式：</p>
+      <!-- 示例格式 -->
+      <pre id="messageFormat">名称: 余温Gueen
+链接: https://wiki.xxdevops.cn/
+头像: https://img.xxdevops.cn/blog/avatar/yuwen_avatar.webp
+描述: 明心静性，爱自己</pre>
+    </div>
+  </div>
+
+</div>
+
+{{ if .Site.Params.comment.enabled }}
+<div class="post-comment">
+  {{ partial "comment.html" . }}
+</div>
+{{ end }}
+</article>
+{{ end }}

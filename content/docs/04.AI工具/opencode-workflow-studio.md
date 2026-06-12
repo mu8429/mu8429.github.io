@@ -1,5 +1,6 @@
 ---
 title: "opencode Workflow Studio：多 Agent 协作可视化平台设想"
+author: mu8429
 date: 2026-06-12T13:00:00+08:00
 lastmod: 2026-06-12T13:00:00+08:00
 description: "整理一个围绕 opencode 的可视化工作流平台设想，用于管理多个 Agent、任务流、日志和上下文。"

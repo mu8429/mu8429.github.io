@@ -1,0 +1,24 @@
+{
+  "links": [
+    {
+      "title": "技术社区",
+      "desc": "常用技术社区和工具",
+      "list": [
+        {
+          "name": "GitHub",
+          "url": "https://github.com/",
+          "avatar": "https://github.githubassets.com/favicons/favicon.svg",
+          "description": "代码托管与开源社区",
+          "irregular": true
+        },
+        {
+          "name": "Stack Overflow",
+          "url": "https://stackoverflow.com/",
+          "avatar": "https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico",
+          "description": "程序员问答社区",
+          "irregular": true
+        }
+      ]
+    }
+  ]
+}

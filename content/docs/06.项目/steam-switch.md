@@ -1,16 +1,17 @@
 ---
 title: "Steam Switch：Windows 桌面端 Steam 账号快速切换工具设想"
+author: mu8429
 date: 2026-06-12T13:00:00+08:00
 lastmod: 2026-06-12T13:00:00+08:00
 description: "整理 Steam 账号快速切换工具的功能设想，包括账号管理、系统托盘、任务栏集成和 Steam 库注入。"
 categories:
-  - 项目复盘
+  - 项目
 tags:
   - Steam
   - Windows
   - 桌面工具
 series:
-  - 项目复盘
+  - 项目
 featured: false
 draft: false
 toc: true

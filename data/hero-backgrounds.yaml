@@ -1,0 +1,47 @@
+# ===========================================
+# Hero 背景图配置（静态优先，高性能）
+# ===========================================
+
+# 静态背景图片列表
+images:
+  - url: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1920&q=80"
+    alt: "编程背景 1"
+    description: "代码编辑器"
+
+  - url: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1920&q=80"
+    alt: "编程背景 2"
+    description: "代码屏幕"
+
+  - url: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1920&q=80"
+    alt: "编程背景 3"
+    description: "笔记本编程"
+
+  - url: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920&q=80"
+    alt: "科技背景"
+    description: "团队协作"
+
+# 响应式图片配置
+responsive:
+  mobile:
+    width: 1080
+    height: 720
+    quality: 75
+    format: "webp"
+  tablet:
+    width: 1440
+    height: 810
+    quality: 80
+    format: "webp"
+  desktop:
+    width: 1920
+    height: 1080
+    quality: 85
+    format: "webp"
+
+# 占位符配置
+placeholder:
+  type: "gradient"
+  colors:
+    - "#1a1a2e"
+    - "#16213e"
+  angle: 135

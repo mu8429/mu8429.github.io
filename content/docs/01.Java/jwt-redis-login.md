@@ -1,17 +1,18 @@
 ---
 title: "Spring Boot 中基于 JWT + Redis 的登录认证设计"
+author: mu8429
 date: 2026-06-12T13:00:00+08:00
 lastmod: 2026-06-12T13:00:00+08:00
 description: "总结后端项目中常见的登录认证设计，包括 Token 生成、Redis 会话存储、验证码、续期和强制下线。"
 categories:
-  - Java 后端
+  - Java
 tags:
   - Spring Boot
   - JWT
   - Redis
   - 登录认证
 series:
-  - Java 后端
+  - Java
 featured: true
 draft: false
 toc: true
